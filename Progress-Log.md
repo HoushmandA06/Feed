@@ -3,10 +3,10 @@ Feed
 
 ##BlueFletch Assignment
 
-**A: Planning **  | Completed Wednesday July 23 | 1 hour spent 
+**A: Planning**  | *Completed Wednesday July 23 | 1 hour spent* 
 - 1 hour reviewing materials, docs provided 
 
-**B: The Basics - Hour 2 - 5** |  STARTED Thursday July 24 - STOPPED Saturday July 26 | 6 hours spent
+**B: The Basics - Hour 2 - 5** |  *STARTED Thursday July 24 - STOPPED Saturday July 26 | 5 hours spent*
 - Build basic UI elements of a login screen (view controller with nav) which pushes to a comment view (a simple tableviewcontroller)
 - Run a GET test to see if I can communicate with web API ((https://bfapp-bfsharing.rhcloud.com/test)
 - Run a POST for login (https://bfapp-bfsharing.rhcloud.com/login) 
