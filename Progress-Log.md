@@ -3,23 +3,25 @@ Feed
 
 ##Progress Log
 
-###**A: Planning**  | *Completed Wednesday July 23* |  *1 hour spent* 
+###**A: Planning**
+*Completed Wednesday July 23* |  *1 hour spent* 
 - 1 hour reviewing materials, docs provided 
 
 Issues/Comments:
 - Sent planning email to Blake and team July 23,
 
 
-###**B: The Basics - Hour 2 - 5** |  *STARTED Thursday July 24 - STOPPED Saturday July 26* | *5 hours spent*
+###**B: The Basics - Hour 2 - 5**
+*STARTED Thursday July 24 - STOPPED Saturday July 26* | *5 hours spent*
 - Build basic UI elements of a login screen (view controller with nav) which pushes to a comment view (a simple tableviewcontroller)
 - Run a GET test to see if I can communicate with web API ((https://bfapp-bfsharing.rhcloud.com/test)
 - Run a POST for login (https://bfapp-bfsharing.rhcloud.com/login) 
 
 Issues/Comments sorted by file:
 - RootViewController.swift (the login screen)
---- Completed basic login screen with Username, PW, and Submit, which then pushes to a TVC (comment feed)
---- Need to make the transition to TVC subsequent to successful login (need a completion handler)
---- Skipped the GET, went straight to POST for login; login successful for Test1,2,3 etc
+-*Completed basic login screen with Username, PW, and Submit, which then pushes to a TVC (comment feed)
+*Need to make the transition to TVC subsequent to successful login (need a completion handler)
+*Skipped the GET, went straight to POST for login; login successful for Test1,2,3 etc
 
 - CommentsViewTVC
 --- Built vasic TVC with ability to post local comments built; placeholder buttons built for Logout, Post, Pull; note: Post only inserts text to local feed at the moment
