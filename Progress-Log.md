@@ -32,7 +32,7 @@ CommentsViewTVC.swift (feed view)
  * There are comments sprinkled throughout to denote further work required most of these are related to TBD's re: API calls
  * Using built-in "tableviewcell" with in tableviewcontroller class for now; project really needs a custom table view cell class (file) in order to handle multiple elements within cell (i.e. comment, date, image, time, etc); if time permits, build custom TVCell
 
-*Chief open items from this work element: a) logout, b) nav completion handler, and c) custom cell*
+#####*Chief open items from this work element: a) logout, b) nav completion handler, and c) custom cell*
 
 
 
