@@ -27,7 +27,7 @@ RootViewController.swift (the login screen)
  * Since init'ng with nav, RVC displays navbar, but is not needed until next View; will hide "navbar" from RootViewController at clean-up stage
 
 CommentsViewTVC.swift (feed view)
- * Built basic TVC with ability to post local comments built; placeholder buttons built for Logout, Post, Pull; note: Post only inserts text to local feed at the moment
+ * Built basic TVC with ability to post local comments; placeholder buttons built for Logout, Post, Pull; note: Post only inserts text to local feed at the moment
  * added ability to edit / swipe delete entries but this only works locally 
  * There are comments sprinkled throughout to denote further work required most of these are related to TBD's re: API calls
  * Using built-in "tableviewcell" with in tableviewcontroller class for now; project really needs a custom table view cell class (file) in order to handle multiple elements within cell (i.e. comment, date, image, time, etc); if time permits, build custom TVCell
