@@ -21,7 +21,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
  
-// to logout, right now there is no "selector" to a) "pop" view and b) clear URLSession (need to build)
+// to logout,  selector should a) "pop" view and b) clear URLSession (need to build)
         
         var logout = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logOut")
             // didnt need to use Selector -- swift knows!
