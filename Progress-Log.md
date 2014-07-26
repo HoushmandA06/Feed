@@ -8,7 +8,7 @@ Feed
 - 1 hour reviewing materials, docs provided 
 
 ####Issues/Comments:
- * Sent planning email to Blake and team July 23,
+ * Sent planning email to Blake and team July 23; no further issues
 
 ###**B: The Basics - Hour 2 - 5**
 *STARTED Thursday July 24 - STOPPED Saturday July 26* | *5 hours spent*
@@ -17,15 +17,20 @@ Feed
 - Run a POST for login (https://bfapp-bfsharing.rhcloud.com/login) 
 
 ####Issues/Comments sorted by file:
+AppDelegate.swift
+ * Code written to launch to RVC with a navcontroller
+
 RootViewController.swift (the login screen)
  * Completed basic login screen with Username, PW, and Submit, which then pushes to a TVC (comment feed)
  * Need to make the transition to TVC subsequent to successful login (need a completion handler)
  * Skipped the GET, went straight to POST for login; login successful for Test1,2,3 etc; will need "logout" code in TVC
+ * Since init'ng with nav, RVC displays navbar, but is not needed until next View; will hide "navbar" from RootViewController at clean-up stage
 
-CommentsViewTVC
+CommentsViewTVC.swift (feed view)
  * Built basic TVC with ability to post local comments built; placeholder buttons built for Logout, Post, Pull; note: Post only inserts text to local feed at the moment
+ * added ability to edit / swipe delete entries but this only works locally 
  * There are comments sprinkled throughout to denote further work required most of these are related to TBD's re: API calls
- * Using built-in "tableviewcell" for now; project really needs a custom table view cell class (file) in order to handle multiple elements within cell (i.e. comment, date, image, time, etc); if time permits, build custom TVCell
+ * Using built-in "tableviewcell" with in tableviewcontroller class for now; project really needs a custom table view cell class (file) in order to handle multiple elements within cell (i.e. comment, date, image, time, etc); if time permits, build custom TVCell
 
 *Chief open items from this work element: a) logout, b) nav completion handler, and c) custom cell*
 
