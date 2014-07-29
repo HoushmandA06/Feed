@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var navVC = UINavigationController(rootViewController: rootVC)
             
             self.window!.rootViewController = navVC
-            
+                        
             // nil is no longer an object
             // ? makes something a bool value... is object true or false
             // Override point for customization after application launch.

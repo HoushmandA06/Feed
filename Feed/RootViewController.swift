@@ -10,7 +10,8 @@ import UIKit
 
 
 let width = UIScreen.mainScreen().bounds.size.width
-let heighth = UIScreen.mainScreen().bounds.size.height
+let height = UIScreen.mainScreen().bounds.size.height
+
 
 
 class RootViewController: UIViewController, UITextFieldDelegate {
@@ -18,7 +19,8 @@ class RootViewController: UIViewController, UITextFieldDelegate {
 
     var inputUser = UITextField(frame: CGRectMake(10, 100, width - 20, 40))
     var inputPW = UITextField(frame: CGRectMake(10, 150, width - 20, 40))
-   
+    var session = NSURLSession.sharedSession()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,10 +95,14 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         
 
         var request = NSMutableURLRequest(URL: NSURL(string: "https://bfapp-bfsharing.rhcloud.com/login"))
-        var session = NSURLSession.sharedSession()
+        
+        // made session global, to be used in TVC when making addl API calls
+        session = NSURLSession.sharedSession()
+    
         request.HTTPMethod = "POST"
         
-        var params = ["username":inputUser.text, "password":inputPW.text] as Dictionary
+        var params = ["username":inputUser.text, "password":inputPW.text] as Dictionary // dont need "as Dictionary" swift recognizes as dictionary once key/value pairs entered, var mutable by default also
+        
         
         var err: NSError?
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
@@ -116,20 +122,26 @@ class RootViewController: UIViewController, UITextFieldDelegate {
             else {
 
                 println("Success")
+                
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    // app crashed until I put dispatch block to get nav push on main queue
+                    
+                    let commentsView : CommentFeedTVC = CommentFeedTVC(style: UITableViewStyle.Plain)
+                    self.navigationController.pushViewController(commentsView, animated: false)
+                    
+                    
+                    })
+                
             }
    
-            
 
             })
         
         task.resume()
         
-        
-        // NEED THIS TO BE SEQUENTIAL TO LOGIN COMPLETION / FIX LATER
-        
-        let commentsView : CommentFeedTVC = CommentFeedTVC(style: UITableViewStyle.Plain)
-        self.navigationController.pushViewController(commentsView, animated: false)
-    
+
  
     }
     

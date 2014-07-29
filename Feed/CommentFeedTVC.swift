@@ -18,13 +18,15 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
 
 
     override func viewDidLoad() {
+    
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
  
+        
 // to logout,  selector should a) "pop" view and b) clear URLSession (need to build)
         
         var logout = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logOut")
-            // didnt need to use Selector -- swift knows!
+        // didnt need to use Selector -- swift knows!
         
         self.navigationItem.leftBarButtonItem = logout
         
@@ -47,7 +49,6 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         inputForm.addSubview(postComment)
         
     
-
 // pull Button -- this will need to pull comments from Feed, for now creating placeholder UI
         
         var pullComment = UIButton(frame: CGRectMake(inputField.frame.width+92, 10, 90, 40))
@@ -108,9 +109,23 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         // will need to insert code to a) pop view back to root and b) clear URL session
         
         // pop view code to go back to login
+
+        
         
         self.navigationController.popViewControllerAnimated(true)
+        
+        var rootVC = self.navigationController.viewControllers[0] as RootViewController
+        
+        // new code added July 29, 2014 8AM - 9AM
+        
+        rootVC.session = nil
+        
+        rootVC.inputUser.text = nil
+        
+        rootVC.inputPW.text = nil
 
+        // below not working as intended, keyboard appears in RVC when popping back to root
+        rootVC.view.endEditing(true)
     
         
     }
