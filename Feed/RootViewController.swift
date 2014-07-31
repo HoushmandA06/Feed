@@ -30,12 +30,10 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         
         self.navigationController.navigationBarHidden = true
         
-        
         // custom colors sampled from BlueFletch Logo website using DevBox
-        
-        //[UIColor colorWithRed:0.431f green:0.788f blue:0.922f alpha:1.0f]
-        //[UIColor colorWithRed:0.431f green:0.788f blue:0.922f alpha:1.0f]
-        //[UIColor colorWithRed:0.133f green:0.196f blue:0.459f alpha:1.0f]
+        // [UIColor colorWithRed:0.431f green:0.788f blue:0.922f alpha:1.0f]
+        // [UIColor colorWithRed:0.431f green:0.788f blue:0.922f alpha:1.0f]
+        // [UIColor colorWithRed:0.133f green:0.196f blue:0.459f alpha:1.0f]
         
 // setting up input textfields
         
@@ -63,12 +61,27 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         login.addTarget(self, action:Selector("submit"), forControlEvents: UIControlEvents.TouchUpInside)
 
    
+        // added below to resign keyboard w/o having to submit
+        var tap : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapScreen"))
+        self.view.addGestureRecognizer(tap)
+    
+        
         self.view.addSubview(login)
         self.view.addSubview(inputUser)
         self.view.addSubview(inputPW)
         
     }
 
+    
+    func tapScreen()
+    {
+    
+        inputUser.resignFirstResponder()
+        inputPW.resignFirstResponder()
+    
+    }
+    
+    
     
     func submit()
     {

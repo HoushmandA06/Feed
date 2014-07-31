@@ -71,8 +71,23 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         
+// added below to resign keyboard w/o having to submit
+        var tap : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapScreen"))
+        self.view.addGestureRecognizer(tap)
+        self.navigationController.view.addGestureRecognizer(tap)
+        
         
     }
+
+    
+    func tapScreen()
+    {
+        
+        inputField.resignFirstResponder()
+        
+    }
+    
+    
 
 
     // CODE FOR POSTING POSTS
@@ -85,8 +100,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
             return
             
             // need a way for user to cancel without entering anything (tapscreen gesture resign keyboard for example); will add if time permits
-            
-
+        
         }
         
         newPosts.insert(inputField.text, atIndex: 0) 
@@ -150,11 +164,12 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
             //request URL
             var urlPath = "https://bfapp-bfsharing.rhcloud.com/feed"
         
-            // "https://itunes.apple.com/lookup?id=159260351&entity=album"
-        
             var url: NSURL = NSURL(string: urlPath)
             var session = NSURLSession.sharedSession()
-            
+        
+        
+            // if i wanted to add a param for asOfDt, do I need to create a "request" class?  Consequently, would task = session.dataTaskWithRequest instead of URL?  dataTaskWithURL not built to pass param / serialized JSON
+        
             var task = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
                 println("Task completed")
                 if(error) {
@@ -168,72 +183,28 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
                     println("JSON Error \(err!.localizedDescription)")
                 }
                 
-                //   var results: NSArray = jsonResult[0] as NSArray
-                //   println ("json result: \(results)")
-                
                     println("jsonresult: \(jsonResult)")
                 
-
+                    println("count: \(jsonResult.count)")
+                
+               // need to enumerate jsonResult to pull "postText"
+                
+                
+                
+                
+                
+                // parsedJSON["boards"]![0]
+                
                 dispatch_async(dispatch_get_main_queue(), {
 
-                // do something with results
-                    
-                    
+
+                //  self.newPosts.insert(jsonResult[0]["postText"], atIndex: 0)
+                
+                
                     })
                 })
+        
             task.resume()
-
-        
-        /*  BELOW WAS THE OLD CODE FOR PULLING (DID NOT WORK), TRIED SOMETHING ELSE ABOVE
-        
-        var rootVC = self.navigationController.viewControllers[0] as RootViewController
-        
-        var request = NSMutableURLRequest(URL: NSURL(string: "https://bfapp-bfsharing.rhcloud.com/feed"))
-        
-        rootVC.session = NSURLSession.sharedSession()
-        
-        request.HTTPMethod = "GET"
-        
-        var params = ["username":rootVC.inputUser.text, "postText":inputField.text] as Dictionary
-        
-        var err: NSError?
-        
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        var task = rootVC.session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
-            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            var err: NSError?
-
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as NSDictionary
-            
-            if(err) {
-                println(err!.localizedDescription)
-            }
-            else {
-                
-                println("Success")
-                
-                if json.count>0 && json["postText"].count>0 {
-                    var results: NSArray = json["postText"] as NSArray
-                    println(results)
-
-                }
-            
-                // insert json postText into array, then reload Tableview
-                // self.newPosts.insert(self.inputField.text, atIndex: 0)
-                
-            }
-            
-            
-            })
-        
-        task.resume()
-        
-        */
 
 
         self.tableView.reloadData()
@@ -262,14 +233,10 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         
         rootVC.navigationController.navigationBarHidden = true
         
-        
-        
         userLabel.text = nil
-        
-        
+    
         // below not working as intended, keyboard appears in RVC when popping back to root
         rootVC.view.endEditing(true)
-    
         
     }
     
@@ -319,7 +286,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
     {
         return newPosts.count
         
-        // newPosts will need to include posts pulled from Feed from other users, will need to modify array accordingly for full functionality
+       
         
     }
     
@@ -331,7 +298,9 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         // will need to build a custome cell class to handle multiple items in cell (text, date, image, etc); build if time permits
         
         var cell = UITableViewCell()
+        
         cell.textLabel.text = self.newPosts[indexPath.row]
+        
         cell.backgroundColor = UIColor(white: 0.90, alpha: 1.0)
         
         // hardcoded avatar to test placement of default imageview that comes with UITableViewCellDefault style
