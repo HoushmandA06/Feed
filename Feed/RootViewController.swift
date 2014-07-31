@@ -20,7 +20,6 @@ class RootViewController: UIViewController, UITextFieldDelegate {
     var inputUser = UITextField(frame: CGRectMake(10, 100, width - 20, 40))
     var inputPW = UITextField(frame: CGRectMake(10, 150, width - 20, 40))
     var session = NSURLSession.sharedSession()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +27,8 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         var titleImage = UIImageView(image: UIImage(named: "normallogoweb.png"))
         titleImage.frame = CGRectMake(width/2-50, self.navigationController.navigationBar.frame.height+6, 100, 40)
         self.view.addSubview(titleImage)
+        
+        self.navigationController.navigationBarHidden = true
         
         
         // custom colors sampled from BlueFletch Logo website using DevBox
@@ -103,7 +104,7 @@ class RootViewController: UIViewController, UITextFieldDelegate {
         
         var params = ["username":inputUser.text, "password":inputPW.text] as Dictionary // dont need "as Dictionary" swift recognizes as dictionary once key/value pairs entered, var mutable by default also
         
-        
+    
         var err: NSError?
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

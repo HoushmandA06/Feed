@@ -8,28 +8,38 @@
 
 import UIKit
 
+
 class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
 
 // to post new comments
     var inputField = UITextField(frame: CGRectMake(10, 10, 160, 40))
     
-// array of "new posts" with test entries -- do I need to make it mutable?
+// array of "new posts" with test entries -- do I need to make it mutable? NOPE.  var auto mutable
     var newPosts = ["Hello World","Another Sample Entry"]
-
-
+    var userLabel = UILabel()
+    
+    
     override func viewDidLoad() {
     
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
- 
         
-// to logout,  selector should a) "pop" view and b) clear URLSession (need to build)
+        self.navigationController.navigationBarHidden = false
+
+        
+        
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+// to logout, action should a) "pop" view and b) clear URLSession
         
         var logout = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logOut")
         // didnt need to use Selector -- swift knows!
-        
         self.navigationItem.leftBarButtonItem = logout
         
+        userLabel.frame = CGRectMake(width/2-50, -1, 150, 50)
+        var rootVC = self.navigationController.viewControllers[0] as RootViewController
+        userLabel.text = "User: \(rootVC.inputUser.text)"
+        
+        self.navigationController.view.addSubview(userLabel)
         
 // creating a header for the inputField
         var inputForm = UIView(frame: CGRectMake(0, 0, 320, 60))
@@ -40,7 +50,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         self.tableView.tableHeaderView = inputForm
 
         
-// post Button -- this will need to post locally and push to Feed server, for now creating UI and func for local post
+// post Button  
         
         var postComment = UIButton(frame: CGRectMake(inputField.frame.width+5, 10, 90, 40))
         postComment.setTitle("Post", forState: UIControlState.Normal)
@@ -60,9 +70,12 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
 // want the ability to delete posts, for now, it will delete local, not server side!
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-
+        
+        
     }
 
+
+    // CODE FOR POSTING POSTS
     
     func postNew()
     {
@@ -76,25 +89,111 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
 
         }
         
-        newPosts.insert(inputField.text, atIndex: 0) // really odd using conv methods like this
+        newPosts.insert(inputField.text, atIndex: 0) 
+
+        // will need to insert code to post to Feed server; below documentation from API doc:
+        
+        var rootVC = self.navigationController.viewControllers[0] as RootViewController
+       
+        var request = NSMutableURLRequest(URL: NSURL(string: "https://bfapp-bfsharing.rhcloud.com/post"))
+        
+        // made session global, to be used in TVC when making addl API calls
+        rootVC.session = NSURLSession.sharedSession()
+        
+        request.HTTPMethod = "POST"
+        
+        var params = ["username":rootVC.inputUser.text, "postText":inputField.text] as Dictionary
+        
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        var task = rootVC.session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError?
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as NSDictionary
+            
+            if(err) {
+                println(err!.localizedDescription)
+            }
+            else {
+                
+                println("Success")
+
+            }
+            
+            
+            })
+        
+        task.resume()
         
         inputField.text = ""
         
         self.tableView.reloadData()
         
         inputField.resignFirstResponder()
-        
-        println(inputField.text)
-        
-        // will need to insert code to post comments to Feed server
+
         
     }
+    
+    
+    // CODE FOR PULLING POSTS
     
     func pullNew()
     {
         
         println("pull selected")
-        // will need to insert code to a) pull comments from Feed server and b) fill out TVC / reload data
+        
+        var rootVC = self.navigationController.viewControllers[0] as RootViewController
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: "https://bfapp-bfsharing.rhcloud.com/feed"))
+        
+        rootVC.session = NSURLSession.sharedSession()
+        
+        request.HTTPMethod = "GET"
+        
+        var params = ["username":rootVC.inputUser.text, "postText":inputField.text] as Dictionary
+        
+        var err: NSError?
+        
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        var task = rootVC.session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError?
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as NSDictionary
+            
+            if(err) {
+                println(err!.localizedDescription)
+            }
+            else {
+                
+                println("Success")
+                
+                if json.count>0 && json["postText"].count>0 {
+                    var results: NSArray = json["postText"] as NSArray
+                    println(results)
+
+                }
+            
+                // insert json postText into array, then reload Tableview
+                // self.newPosts.insert(self.inputField.text, atIndex: 0)
+                
+            }
+            
+            
+            })
+        
+        task.resume()
+        
+        self.tableView.reloadData()
         
     }
     
@@ -103,27 +202,28 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
     
     {
         
-        
         println("logout selected")
         
         // will need to insert code to a) pop view back to root and b) clear URL session
-        
         // pop view code to go back to login
-
-        
-        
+    
         self.navigationController.popViewControllerAnimated(true)
         
         var rootVC = self.navigationController.viewControllers[0] as RootViewController
-        
-        // new code added July 29, 2014 8AM - 9AM
         
         rootVC.session = nil
         
         rootVC.inputUser.text = nil
         
         rootVC.inputPW.text = nil
-
+        
+        rootVC.navigationController.navigationBarHidden = true
+        
+        
+        
+        userLabel.text = nil
+        
+        
         // below not working as intended, keyboard appears in RVC when popping back to root
         rootVC.view.endEditing(true)
     
@@ -190,6 +290,10 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         var cell = UITableViewCell()
         cell.textLabel.text = self.newPosts[indexPath.row]
         cell.backgroundColor = UIColor(white: 0.90, alpha: 1.0)
+        
+        // hardcoded avatar to test placement of default imageview that comes with UITableViewCellDefault style
+        cell.imageView.image = UIImage(named: "007306d.jpg")
+        
         return cell
         
         
