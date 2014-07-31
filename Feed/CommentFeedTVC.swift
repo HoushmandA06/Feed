@@ -15,6 +15,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
     var inputField = UITextField(frame: CGRectMake(10, 10, 160, 40))
     
 // array of "new posts" with test entries -- do I need to make it mutable? NOPE.  var auto mutable
+
     var newPosts = ["Hello World","Another Sample Entry"]
     var userLabel = UILabel()
     
@@ -44,7 +45,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
 // creating a header for the inputField
         var inputForm = UIView(frame: CGRectMake(0, 0, 320, 60))
         inputField.delegate = self
-        inputField.placeholder = "New Input"
+        inputField.placeholder = "New Post"
         inputField.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         inputForm.addSubview(inputField)
         self.tableView.tableHeaderView = inputForm
@@ -183,29 +184,32 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
                     println("JSON Error \(err!.localizedDescription)")
                 }
                 
-                    println("jsonresult: \(jsonResult)")
+                // println("jsonresult: \(jsonResult)")
                 
-                    println("count: \(jsonResult.count)")
+                println("count: \(jsonResult.count)")
+    
+                var testObject : AnyObject! = jsonResult[0]
                 
-               // need to enumerate jsonResult to pull "postText"
-                
-                
-                
-                
-                
-                // parsedJSON["boards"]![0]
+                println("\(testObject)")
                 
                 dispatch_async(dispatch_get_main_queue(), {
-
-
-                //  self.newPosts.insert(jsonResult[0]["postText"], atIndex: 0)
+                    
+                // need to enumerate jsonResult to pull "postText"
+                    
+                /*
+                for i in 0..jsonResult.count {
                 
-                
-                    })
+                    self.newPosts.append(jsonResult[i])
+                   
+                }
+                */
+                    
+                    
                 })
+                
+        })
         
-            task.resume()
-
+        task.resume()
 
         self.tableView.reloadData()
         
@@ -217,9 +221,6 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
     {
         
         println("logout selected")
-        
-        // will need to insert code to a) pop view back to root and b) clear URL session
-        // pop view code to go back to login
     
         self.navigationController.popViewControllerAnimated(true)
         
