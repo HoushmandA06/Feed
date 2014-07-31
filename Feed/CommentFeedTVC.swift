@@ -35,7 +35,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         // didnt need to use Selector -- swift knows!
         self.navigationItem.leftBarButtonItem = logout
         
-        userLabel.frame = CGRectMake(width/2-50, -1, 150, 50)
+        userLabel.frame = CGRectMake(width/2-50, -3, 150, 50)
         var rootVC = self.navigationController.viewControllers[0] as RootViewController
         userLabel.text = "User: \(rootVC.inputUser.text)"
         
@@ -97,7 +97,6 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
        
         var request = NSMutableURLRequest(URL: NSURL(string: "https://bfapp-bfsharing.rhcloud.com/post"))
         
-        // made session global, to be used in TVC when making addl API calls
         rootVC.session = NSURLSession.sharedSession()
         
         request.HTTPMethod = "POST"
@@ -146,6 +145,46 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
     {
         
         println("pull selected")
+       
+        
+            //request URL
+            var urlPath = "https://bfapp-bfsharing.rhcloud.com/feed"
+        
+            // "https://itunes.apple.com/lookup?id=159260351&entity=album"
+        
+            var url: NSURL = NSURL(string: urlPath)
+            var session = NSURLSession.sharedSession()
+            
+            var task = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+                println("Task completed")
+                if(error) {
+                    // If there is an error in the web request, print it to the console
+                    println(error.localizedDescription)
+                }
+                var err: NSError?
+                var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as NSArray  // changed from NSDictionary to NSArray since JSON data is an array of dictionaries
+                if(err?) {
+                    // If there is an error parsing JSON, print it to the console
+                    println("JSON Error \(err!.localizedDescription)")
+                }
+                
+                //   var results: NSArray = jsonResult[0] as NSArray
+                //   println ("json result: \(results)")
+                
+                    println("jsonresult: \(jsonResult)")
+                
+
+                dispatch_async(dispatch_get_main_queue(), {
+
+                // do something with results
+                    
+                    
+                    })
+                })
+            task.resume()
+
+        
+        /*  BELOW WAS THE OLD CODE FOR PULLING (DID NOT WORK), TRIED SOMETHING ELSE ABOVE
         
         var rootVC = self.navigationController.viewControllers[0] as RootViewController
         
@@ -168,6 +207,7 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
             println("Body: \(strData)")
             var err: NSError?
+
             var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as NSDictionary
             
             if(err) {
@@ -193,6 +233,9 @@ class CommentFeedTVC: UITableViewController, UITextFieldDelegate {
         
         task.resume()
         
+        */
+
+
         self.tableView.reloadData()
         
     }
