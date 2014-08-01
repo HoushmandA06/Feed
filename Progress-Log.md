@@ -35,14 +35,33 @@ CommentsViewTVC.swift (feed view)
 #####*Chief open items from this work element: a) logout, b) nav completion handler, and c) custom cell*
 
 
+###C: API Linkage -  Hour 5-14 
 
-Will Begin Below Tuesday at BlueFletch Office
-###C: API Linkage -  Hour 5-14 (have not started)
+
 - Work down the list of API calls (GET comments, GET users, POST comments, etc) as best I can 
 - I envision needing the most assistance with this task and have budgeted most of my time here accordingly
 
-###D: UICleanup - Hour 14 - 15 (have not started)
-- if time remains, clean up UI, make pretty, test for bugs
+*STARTED Tuesday July 29 | *3 hours spent*
 
+####Issues/Comments sorted by file:
+RootViewController.swift
+* fixed a) logout and b) nav completion handler (open items from Part B)
+
+CommentsViewTVC.swift
+* started work on post new comments to feed, successful post sent to feed
+* started work on pulling feed thread, App crashing, left as open item
+
+*STARTED Tuesday July 31 | *5 hours spent*
+
+CommentsViewTVC.swift
+* researched app crash and JSON / API calls
+* able to get download feed and displayed in console
+* worked on getting jsonResult into TVC
+
+###D: UICleanup - Hour 14 - 15 
+- if time remains, clean up UI, make pretty, test for bugs
+*STARTED Tuesday July 31 | *5 hours spent*
+* added a tapscreen gesture recognizer to dismiss keyboard
+* used most of the time to research further how to load the jsonResult into TVC
 
 
