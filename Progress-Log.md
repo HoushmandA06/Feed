@@ -41,7 +41,7 @@ CommentsViewTVC.swift (feed view)
 - Work down the list of API calls (GET comments, GET users, POST comments, etc) as best I can 
 - I envision needing the most assistance with this task and have budgeted most of my time here accordingly
 
-*STARTED Tuesday July 29 | *3 hours spent*
+*STARTED Tuesday July 29* | *3 hours spent*
 
 ####Issues/Comments sorted by file:
 RootViewController.swift
@@ -51,7 +51,7 @@ CommentsViewTVC.swift
 * started work on post new comments to feed, successful post sent to feed
 * started work on pulling feed thread, App crashing, left as open item
 
-*STARTED Tuesday July 31 | *5 hours spent*
+*STARTED Tuesday July 31* | *5 hours spent*
 
 CommentsViewTVC.swift
 * researched app crash and JSON / API calls
@@ -61,7 +61,7 @@ CommentsViewTVC.swift
 ###D: UICleanup - Hour 14 - 15 
 - if time remains, clean up UI, make pretty, test for bugs
 
-*STARTED Tuesday July 31 | *5 hours spent*
+*STARTED Tuesday July 31* | *1 hours spent*
 
 * added a tapscreen gesture recognizer to dismiss keyboard
 * used most of the time to research further how to load the jsonResult into TVC
