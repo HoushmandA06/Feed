@@ -12,9 +12,9 @@ Feed
 
 ###**B: The Basics - Hour 2 - 5**
 *STARTED Thursday July 24 - STOPPED Saturday July 26* | *5 hours spent*
-> Build basic UI elements of a login screen (view controller with nav) which pushes to a comment view (a simple tableviewcontroller)
-> Run a GET test to see if I can communicate with web API ((https://bfapp-bfsharing.rhcloud.com/test)
-> Run a POST for login (https://bfapp-bfsharing.rhcloud.com/login) 
+> * Build basic UI elements of a login screen (view controller with nav) which pushes to a comment view (a simple tableviewcontroller)
+> * Run a GET test to see if I can communicate with web API ((https://bfapp-bfsharing.rhcloud.com/test)
+> * Run a POST for login (https://bfapp-bfsharing.rhcloud.com/login) 
 
 ####Issues/Comments sorted by file:
 AppDelegate.swift
@@ -38,8 +38,8 @@ CommentsViewTVC.swift (feed view)
 ###C: API Linkage -  Hour 5-14 
 
 
-> Work down the list of API calls (GET comments, GET users, POST comments, etc) as best I can 
-> I envision needing the most assistance with this task and have budgeted most of my time here accordingly
+> * Work down the list of API calls (GET comments, GET users, POST comments, etc) as best I can 
+> * I envision needing the most assistance with this task and have budgeted most of my time here accordingly
 
 *STARTED Tuesday July 29* | *3 hours spent*
 
@@ -63,7 +63,7 @@ CommentsViewTVC.swift
 #####*Chief open items from this work element: get pulled data into TVC*
 
 ###D: UICleanup - Hour 14 - 15 
-> if time remains, clean up UI, make pretty, test for bugs
+> * if time remains, clean up UI, make pretty, test for bugs
 
 *STARTED Tuesday July 31* | *1 hours spent*
 
