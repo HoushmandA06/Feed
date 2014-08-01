@@ -51,6 +51,9 @@ CommentsViewTVC.swift
 * started work on post new comments to feed, successful post sent to feed
 * started work on pulling feed thread, App crashing, left as open item
 
+#####*Chief open items from this work element: fix pull feed function*
+
+
 *STARTED Tuesday July 31* | *5 hours spent*
 
 CommentsViewTVC.swift
@@ -66,4 +69,5 @@ CommentsViewTVC.swift
 * added a tapscreen gesture recognizer to dismiss keyboard
 * used most of the time to research further how to load the jsonResult into TVC
 
+#####*Chief open items from this work element: unable to get pulled feed data into TVC*
 
