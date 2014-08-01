@@ -60,7 +60,9 @@ CommentsViewTVC.swift
 
 ###D: UICleanup - Hour 14 - 15 
 - if time remains, clean up UI, make pretty, test for bugs
+
 *STARTED Tuesday July 31 | *5 hours spent*
+
 * added a tapscreen gesture recognizer to dismiss keyboard
 * used most of the time to research further how to load the jsonResult into TVC
 
